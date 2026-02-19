@@ -1,4 +1,4 @@
-FROM ghcr.io/astral-sh/uv:python3.9.6-bookworm-slim
+FROM ghcr.io/astral-sh/uv:python3.9-bookworm-slim
 
 WORKDIR /app
 
@@ -8,7 +8,7 @@ ENV PYTHONOPTIMIZE=1
 ENV PYTHONUNBUFFERED=1
 ENV PYTHONDONTWRITEBYTECODE=1
 
-ENV PYTHONPATH="/app/apps/chatbot_ui/src:$PYTHONPATH"
+ENV PYTHONPATH="/app/src:$PYTHONPATH"
 
 # Copy workspace root files for dependency resolution
 COPY pyproject.toml uv.lock ./
@@ -16,6 +16,8 @@ COPY pyproject.toml uv.lock ./
 # Install dependencies including workspace packages
 RUN --mount=type=cache,target=/root/.cache/uv \
     uv sync --frozen --no-dev 
+
+# RUN pip install --no-cache-dir -r requirements.txt
 
 COPY src ./src/
 
@@ -45,4 +47,4 @@ EXPOSE 8501
 # WORKDIR /app/apps/chatbot_ui/src
 
 # Command to run the application
-CMD ["streamlit", "run", "chatbot_ui/app.py", "--server.address=0.0.0.0"]
+CMD ["streamlit", "run", "./src/app.py", "--server.address=0.0.0.0"]
