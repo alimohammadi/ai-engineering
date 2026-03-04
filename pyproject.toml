@@ -8,6 +8,7 @@ dependencies = [
     "google-genai>=1.47.0",
     "groq>=1.0.0",
     "ipykernel>=6.31.0",
+    "nbconvert>=7.17.0",
     "openai>=2.21.0",
     "pydantic>=2.12.5",
     "pydantic-settings>=2.11.0",
@@ -19,4 +20,9 @@ dependencies = [
 members = [
     "apps/api",
     "apps/chatbot_ui",
+]
+
+[dependency-groups]
+dev = [
+    "matplotlib>=3.9.4",
 ]
