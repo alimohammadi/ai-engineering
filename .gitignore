@@ -1,4 +1,5 @@
 .env
-data
+data/
+qdrant_storage/
 
 .DS_*
