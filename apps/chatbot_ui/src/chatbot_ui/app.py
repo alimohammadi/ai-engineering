@@ -55,41 +55,6 @@ if "messages" not in st.session_state:
 
 
 # -----------------------------
-# SIDEBAR
-# -----------------------------
-with st.sidebar:
-    st.title("Side Bar")
-
-    provider = st.selectbox(
-        "Provider",
-        ["OpenAI", "Groq", "Google"],
-        index=["OpenAI", "Groq", "Google"].index(st.session_state.provider)
-    )
-
-    if provider == "OpenAI":
-        model_name = st.selectbox(
-            "Model",
-            ["gpt-5-nano", "gpt-5-mini"],
-        )
-
-    elif provider == "Groq":
-        model_name = st.selectbox(
-            "Model",
-            ["llama-3.3-70b-versatile"],
-        )
-
-    elif provider == "Google":
-        model_name = st.selectbox(
-            "Model",
-            ["gemini-2.5-flash"],
-        )
-
-    # Save to session state
-    st.session_state.provider = provider
-    st.session_state.model_name = model_name
-
-
-# -----------------------------
 # DISPLAY CHAT HISTORY
 # -----------------------------
 for message in st.session_state.messages:
@@ -110,11 +75,9 @@ if prompt := st.chat_input("Type your message..."):
     with st.chat_message("assistant"):
         success, response_data = api_call(
             "POST",
-            f"{config.API_URL}/chat",
+            f"{config.API_URL}/rag",
             json={
-                "provider": st.session_state.provider,
-                "models_name": st.session_state.model_name,
-                "messages": st.session_state.messages,
+                "query": prompt
             },
         )
 
