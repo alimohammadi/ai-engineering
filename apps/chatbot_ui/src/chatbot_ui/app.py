@@ -2,7 +2,6 @@ import streamlit as st
 import requests
 from chatbot_ui.core.config import config
 
-
 # -----------------------------
 # API CALL FUNCTION
 # -----------------------------
