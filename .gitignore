@@ -1,5 +1,5 @@
 .env
 data/
 qdrant_storage/
-
+.venv
 .DS_*

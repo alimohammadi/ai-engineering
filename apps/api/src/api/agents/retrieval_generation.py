@@ -7,7 +7,6 @@ from langsmith import traceable, get_current_run_tree
     run_type="embedding",
     metadata={"ls_provider":"openai", "ls_model_name":"text-embedding-3-small"}
 )
-
 def get_embedding(text, model="text-embedding-3-small"):
     response = openai.embeddings.create(
         input=text,
@@ -22,8 +21,6 @@ def get_embedding(text, model="text-embedding-3-small"):
             "total_tokens": response.usage.total_tokens
         }
 
-
-    
     return response.data[0].embedding
 
 @traceable(
@@ -64,7 +61,11 @@ def retrieve_data(query, qdrant_client, k=5):
 def process_context(context):
     formatted_context = ""
 
-    for id, chunk, rating in zip(context["retrieved_context_ids"], context["retrieved_context"],  context["retrieved_context_rating"]):
+    for id, chunk, rating in zip(
+        context["retrieved_context_ids"], 
+        context["retrieved_context"],  
+        context["similarity_scores"],
+    ):
         formatted_context += f"- ID: {id}, rating: {rating}, description: {chunk}\n" 
 
     return formatted_context
@@ -104,7 +105,6 @@ def generate_answer(prompt):
         messages=[{"role": "system", "content": prompt}],
         reasoning_effort="minimal"
     )
-
 
     current_run = get_current_run_tree()
 
