@@ -81,9 +81,9 @@ if prompt := st.chat_input("Type your message..."):
         )
 
         if success:
-            answer = response_data.get("message", "No response from server.")
+            answer = response_data.get("answer", "No response from server.")
         else:
-            answer = response_data.get("message", "Something went wrong.")
+            answer = response_data.get("detail", response_data.get("message", "Something went wrong."))
 
         st.write(answer)
 
