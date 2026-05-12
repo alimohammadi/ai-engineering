@@ -74,7 +74,7 @@ if prompt := st.chat_input("Type your message..."):
     with st.chat_message("assistant"):
         success, response_data = api_call(
             "POST",
-            f"{config.API_URL}/rag",
+            f"{config.API_URL}/rag/",
             json={
                 "query": prompt
             },
